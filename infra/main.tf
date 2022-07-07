@@ -12,15 +12,16 @@ provider "oci" {
   config_file_profile = var.config_file_profile
 }
 
-resource "oci_identity_compartment" "compartment-chapter-backend" {
-    compartment_id = var.compartment_id
-    description = "Compartment to play with k8s"
-    name = "compartment-chapter-backend"
+
+resource "oci_identity_compartment" "compartment_chapter_backend" {
+  compartment_id = var.root_compartment_id
+  description    = "Compartment to play with k8s"
+  name           = "compartment_chapter_backend"
 }
 
 resource "oci_core_vcn" "internal" {
-  dns_label       = "internal"
-  cidr_block      = "192.168.1.0/24"
-  compartment_id = var.compartment_id
-  display_name    = "k8s internal VCN"
+  dns_label      = "internal"
+  cidr_block     = "192.168.1.0/24"
+  compartment_id = oci_identity_compartment.compartment_chapter_backend.id
+  display_name   = "k8s internal VCN"
 }
