@@ -20,3 +20,8 @@ variable "config_file_profile" {
   type        = string
   default     = "DEFAULT"
 }
+
+variable "ssh_key_path" {
+  description = "SSH key file path"
+  type        = string
+}
